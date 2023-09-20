@@ -70,7 +70,7 @@ fi
 ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 # Default settings
-REPO=${REPO:-ohmyzsh/ohmyzsh}
+REPO=${REPO:-GR3YH4TT3R93/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
 
