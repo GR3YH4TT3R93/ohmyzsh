@@ -33,8 +33,22 @@ function d () {
 }
 compdef _dirs d
 
-# List directory contents
-alias lsa='ls -lah'
-alias l='ls -lah'
-alias ll='ls -lh'
-alias la='ls -lAh'
+# Smart directory listing aliases that fallback gracefully
+# Uses logo-ls if available, then eza, then falls back to regular ls
+
+if command -v logo-ls >/dev/null 2>&1; then
+    alias lsa='logo-ls -AD'
+    alias l='logo-ls -D'
+    alias ll='logo-ls -lh'
+    alias la='logo-ls -lAh'
+elif command -v eza >/dev/null 2>&1; then
+    alias lsa='eza -lah'
+    alias l='eza -lah'
+    alias ll='eza -lh'
+    alias la='eza -lAh'
+else
+    alias lsa='ls -lah'
+    alias l='ls -lah'
+    alias ll='ls -lh'
+    alias la='ls -lAh'
+fi
