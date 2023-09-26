@@ -44,6 +44,7 @@ plugins=(... git)
 | `gbda`                 | `git branch --no-color --merged \| command grep -vE "^([+*]\|\s*($(git_main_branch)\|$(git_develop_branch))\s*$)" \| command xargs git branch --delete 2>/dev/null` |
 | `gbgd`                 | `LANG=C git branch --no-color -vv \| grep ": gone\]" \| awk '"'"'{print $1}'"'"' \| xargs git branch -d`                                                            |
 | `gbgD`                 | `LANG=C git branch --no-color -vv \| grep ": gone\]" \| awk '"'"'{print $1}'"'"' \| xargs git branch -D`                                                            |
+| `gbm`                  | `git branch --move`                                                                                                                                                 |
 | `gbnm`                 | `git branch --no-merged`                                                                                                                                            |
 | `gbr`                  | `git branch --remote`                                                                                                                                               |
 | `ggsup`                | `git branch --set-upstream-to=origin/$(git_current_branch)`                                                                                                         |
@@ -162,6 +163,8 @@ plugins=(... git)
 | `grh`                  | `git reset`                                                                                                                                                         |
 | `gru`                  | `git reset --`                                                                                                                                                      |
 | `grhh`                 | `git reset --hard`                                                                                                                                                  |
+| `grhk`                 | `git reset --keep`                                                                                                                                                  |
+| `grhs`                 | `git reset --soft`                                                                                                                                                  |
 | `gpristine`            | `git reset --hard && git clean -dffx`                                                                                                                               |
 | `groh`                 | `git reset origin/$(git_current_branch) --hard`                                                                                                                     |
 | `grs`                  | `git restore`                                                                                                                                                       |
@@ -183,7 +186,7 @@ plugins=(... git)
 | `gstp`                 | `git stash pop`                                                                                                                                                     |
 | `gsta`                 | On Git >= 2.13: `git stash push`                                                                                                                                    |
 | `gsta`                 | On Git < 2.13: `git stash save`                                                                                                                                     |
-| `gsts`                 | `git stash show --text`                                                                                                                                             |
+| `gsts`                 | `git stash show`                                                                                                                                                    |
 | `gst`                  | `git status`                                                                                                                                                        |
 | `gss`                  | `git status --short`                                                                                                                                                |
 | `gsb`                  | `git status --short -b`                                                                                                                                             |
@@ -196,6 +199,8 @@ plugins=(... git)
 | `gswc`                 | `git switch -c`                                                                                                                                                     |
 | `gswd`                 | `git switch $(git_develop_branch)`                                                                                                                                  |
 | `gswm`                 | `git switch $(git_main_branch)`                                                                                                                                     |
+| `gt`                   | `git tag`                                                                                                                                                           |
+| `gta`                  | `git tag --annotate`                                                                                                                                                |
 | `gts`                  | `git tag -s`                                                                                                                                                        |
 | `gtv`                  | `git tag \| sort -V`                                                                                                                                                |
 | `gignore`              | `git update-index --assume-unchanged`                                                                                                                               |
