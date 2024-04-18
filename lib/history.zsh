@@ -2,16 +2,16 @@
 function omz_history {
   # parse arguments and remove from $@
   local clear list stamp
-  zparseopts -E -D c=clear l=list f=stamp E=stamp i=stamp
+  zparseopts -E -D c=clear l=list f=stamp E=stamp i=stamp t:=stamp
 
-  if [[ $# -eq 0 ]]; then
-    # if no arguments provided, show full history starting from 1
-    builtin fc $stamp -l 1
-  elif [[ -n "$clear" ]]; then
+  if [[ -n "$clear" ]]; then
     # if -c provided, clobber the history file
     echo -n >| "$HISTFILE"
     fc -p "$HISTFILE"
     echo >&2 History file deleted.
+  elif [[ $# -eq 0 ]]; then
+    # if no arguments provided, show full history starting from 1
+    builtin fc $stamp -l 1
   else
     # otherwise, run `fc -l` with a custom format
     builtin fc $stamp -l "$@"
