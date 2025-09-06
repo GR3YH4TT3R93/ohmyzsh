@@ -133,26 +133,18 @@ function _zsh_tmux_plugin_run() {
       session_name="$ZSH_TMUX_DEFAULT_SESSION_NAME"
   fi
 
-  # Try to connect to an existing session.
-  if [[ -n "$session_name" ]]; then
-    [[ "$ZSH_TMUX_AUTOCONNECT" == "true" ]] && $tmux_cmd attach $_detached -t "$session_name"
-  else
-    [[ "$ZSH_TMUX_AUTOCONNECT" == "true" ]] && $tmux_cmd attach $_detached
+  # fix the TERM variable if requested.
+  if [[ "$ZSH_TMUX_FIXTERM" == "true" ]]; then
+    tmux_cmd+=(-f "$_ZSH_TMUX_FIXED_CONFIG")
+  elif [[ -e "$ZSH_TMUX_CONFIG" ]]; then
+    tmux_cmd+=(-f "$ZSH_TMUX_CONFIG")
   fi
 
-  # If failed, just run tmux, fixing the TERM variable if requested.
-  if [[ $? -ne 0 ]]; then
-    if [[ "$ZSH_TMUX_FIXTERM" == "true" ]]; then
-      tmux_cmd+=(-f "$_ZSH_TMUX_FIXED_CONFIG")
-    elif [[ -e "$ZSH_TMUX_CONFIG" ]]; then
-      tmux_cmd+=(-f "$ZSH_TMUX_CONFIG")
-    fi
-
-    if [[ -n "$session_name" ]]; then
-      $tmux_cmd new-session -s "$session_name"
-    else
-      $tmux_cmd new-session
-    fi
+  # Try to connect to an existing session.
+  if [[ -n "$session_name" ]]; then
+    [[ "$ZSH_TMUX_AUTOCONNECT" == "true" ]] && $tmux_cmd new -A $_detached -s "$session_name"
+  else
+    [[ "$ZSH_TMUX_AUTOCONNECT" == "true" ]] && $tmux_cmd new -A $_detached
   fi
 
   if [[ "$ZSH_TMUX_AUTOQUIT" == "true" ]]; then
